@@ -1,0 +1,287 @@
+/* ===== Mój Oddech — style: duże, czytelne, wysoki kontrast ===== */
+
+:root {
+  --tlo: #0d1b2a;
+  --karta: #1b2a3f;
+  --karta-jasna: #24374f;
+  --tekst: #f4f7fb;
+  --tekst-slaby: #b8c6d8;
+  --akcent: #4cc9f0;
+  --zielony: #2e9e5b;
+  --zielony-jasny: #90e0a6;
+  --zolty: #e0a800;
+  --czerwony: #d64545;
+  --pomoc: #c0392b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html { font-size: 18px; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--tlo);
+  color: var(--tekst);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ===== Nagłówek ===== */
+header {
+  padding: 14px 16px 8px;
+  text-align: center;
+}
+#naglowek-data { font-size: 1.15rem; color: var(--tekst-slaby); }
+#naglowek-zegar { font-size: 2.4rem; font-weight: 700; line-height: 1.1; }
+#co-teraz {
+  margin: 8px 12px 0;
+  padding: 10px 14px;
+  background: var(--karta);
+  border-radius: 14px;
+  font-size: 1.25rem;
+  min-height: 2.6rem;
+}
+
+/* ===== Ekrany ===== */
+main { flex: 1; padding: 12px 14px 120px; overflow-y: auto; }
+.ekran { display: none; }
+.ekran.aktywny { display: block; }
+
+.tytul-ekranu {
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 4px 0 16px;
+}
+
+/* ===== Kafle ekranu głównego ===== */
+.kafle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.kafel {
+  background: var(--karta);
+  border: none;
+  border-radius: 20px;
+  color: var(--tekst);
+  padding: 18px 10px;
+  min-height: 150px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.kafel:active { background: var(--karta-jasna); }
+.kafel .ikona { font-size: 3rem; line-height: 1; }
+.kafel .podpis { font-size: 1rem; font-weight: 400; color: var(--tekst-slaby); text-align: center; }
+.kafel .podpis.ok { color: var(--zielony-jasny); }
+.kafel .podpis.uwaga { color: var(--zolty); }
+
+/* ===== Przyciski ===== */
+.przycisk {
+  display: block;
+  width: 100%;
+  min-height: 84px;
+  border: none;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--karta-jasna);
+  margin: 10px 0;
+  cursor: pointer;
+  padding: 12px;
+}
+.przycisk:active { filter: brightness(1.2); }
+.przycisk.zielony { background: var(--zielony); }
+.przycisk.niebieski { background: #1d6fa5; }
+.przycisk.czerwony { background: var(--czerwony); }
+.przycisk.szary { background: var(--karta); color: var(--tekst-slaby); }
+.przycisk.maly { min-height: 60px; font-size: 1.15rem; }
+.przycisk:disabled { opacity: 0.45; }
+
+/* ===== Karty / listy ===== */
+.karta {
+  background: var(--karta);
+  border-radius: 18px;
+  padding: 16px;
+  margin: 10px 0;
+  font-size: 1.2rem;
+}
+.karta h3 { font-size: 1.3rem; margin-bottom: 6px; }
+.karta .opis { color: var(--tekst-slaby); font-size: 1.05rem; }
+.karta.ok { border-left: 10px solid var(--zielony); }
+.karta.uwaga { border-left: 10px solid var(--zolty); }
+.karta.alarm { border-left: 10px solid var(--czerwony); }
+.karta.zrobione { opacity: 0.6; }
+
+/* ===== Kółko postępu respiratora ===== */
+.postep-kolo { display: block; margin: 6px auto; }
+.postep-kolo .tor { stroke: var(--karta-jasna); }
+.postep-kolo .pasek { stroke: var(--zielony-jasny); transition: stroke-dashoffset 0.6s; }
+.postep-kolo text { fill: var(--tekst); font-weight: 700; }
+#respirator-czas-duzy { font-size: 3rem; font-weight: 700; text-align: center; }
+#respirator-info { text-align: center; font-size: 1.2rem; color: var(--tekst-slaby); margin: 6px 0 14px; }
+
+/* ===== Klawiatura numeryczna ===== */
+#wpis-wartosc {
+  font-size: 3.2rem;
+  font-weight: 700;
+  text-align: center;
+  background: var(--karta);
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 14px;
+  min-height: 5rem;
+  letter-spacing: 2px;
+}
+.klawiatura {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.klawisz {
+  min-height: 76px;
+  font-size: 2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 16px;
+  background: var(--karta-jasna);
+  color: var(--tekst);
+  cursor: pointer;
+}
+.klawisz:active { filter: brightness(1.3); }
+
+/* ===== Wynik pomiaru ===== */
+.wynik { border-radius: 18px; padding: 20px; text-align: center; margin: 12px 0; }
+.wynik .duzy { font-size: 2.6rem; font-weight: 700; }
+.wynik .zdanie { font-size: 1.3rem; margin-top: 8px; }
+.wynik.ok { background: #14432a; }
+.wynik.uwaga { background: #4d3c00; }
+.wynik.alarm { background: #5c1f1f; }
+
+/* ===== Wykresy ===== */
+.wykres-karta svg { width: 100%; height: auto; }
+.wykres-karta .os { stroke: var(--tekst-slaby); stroke-width: 1; }
+.wykres-karta .linia { fill: none; stroke: var(--akcent); stroke-width: 4; stroke-linecap: round; }
+.wykres-karta .punkt { fill: var(--zielony-jasny); }
+.wykres-karta text { fill: var(--tekst-slaby); font-size: 15px; }
+
+/* ===== Dieta ===== */
+.posilek-naglowek { font-size: 1.05rem; color: var(--akcent); text-transform: uppercase; letter-spacing: 1px; }
+.posilek-nazwa { font-size: 1.35rem; font-weight: 700; margin: 4px 0 8px; }
+.posilek-kroki { font-size: 1.1rem; color: var(--tekst-slaby); padding-left: 22px; }
+.posilek-kroki li { margin: 4px 0; }
+.zamiennik { font-size: 1.05rem; margin-top: 8px; color: var(--zielony-jasny); }
+.woda-rzad { display: flex; gap: 10px; justify-content: center; margin: 10px 0; flex-wrap: wrap; }
+.szklanka { font-size: 2.4rem; background: none; border: none; cursor: pointer; filter: grayscale(1) opacity(0.4); }
+.szklanka.pelna { filter: none; }
+
+/* ===== Dziennik — wybory obrazkowe ===== */
+.wybor-rzad { display: flex; gap: 12px; margin: 10px 0 18px; }
+.wybor {
+  flex: 1;
+  min-height: 84px;
+  font-size: 2.2rem;
+  border: 4px solid transparent;
+  border-radius: 18px;
+  background: var(--karta);
+  cursor: pointer;
+  color: var(--tekst);
+}
+.wybor .mala-etykieta { display: block; font-size: 0.95rem; margin-top: 2px; color: var(--tekst-slaby); }
+.wybor.wybrany { border-color: var(--akcent); background: var(--karta-jasna); }
+
+/* ===== Raport ===== */
+#raport-tresc { font-size: 1.1rem; }
+#raport-tresc h3 { margin: 14px 0 6px; }
+.raport-wiersz { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--karta-jasna); }
+
+/* ===== Pasek dolny ===== */
+#pasek-dol {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  gap: 10px;
+  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+  background: var(--tlo);
+  border-top: 2px solid var(--karta);
+}
+#przycisk-wstecz {
+  flex: 1;
+  min-height: 72px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 18px;
+  background: var(--karta-jasna);
+  color: var(--tekst);
+  cursor: pointer;
+}
+#przycisk-pomoc {
+  flex: 1;
+  min-height: 72px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 18px;
+  background: var(--pomoc);
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ===== Baner przypomnienia ===== */
+#baner {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: var(--zolty);
+  color: #1a1a1a;
+  font-size: 1.35rem;
+  font-weight: 700;
+  padding: 18px 14px calc(14px + env(safe-area-inset-top));
+  text-align: center;
+  z-index: 50;
+  cursor: pointer;
+}
+#baner.widoczny { display: block; }
+
+/* ===== Ustawienia ===== */
+.ustawienie { margin: 14px 0; }
+.ustawienie label { display: block; font-size: 1.1rem; color: var(--tekst-slaby); margin-bottom: 6px; }
+.ustawienie input, .ustawienie select {
+  width: 100%;
+  font-size: 1.25rem;
+  padding: 14px;
+  border-radius: 14px;
+  border: 2px solid var(--karta-jasna);
+  background: var(--karta);
+  color: var(--tekst);
+}
+.notka { font-size: 1rem; color: var(--tekst-slaby); margin: 10px 0; line-height: 1.4; }
+.notka.wazna { color: var(--zolty); }
+
+.srodek { text-align: center; }
+.duzy-emoji { font-size: 3.4rem; text-align: center; margin: 8px 0; }
+#pomoc-numer { font-size: 2.6rem; font-weight: 700; text-align: center; margin: 10px 0; }
+
+/* ===== Druk raportu ===== */
+@media print {
+  body { background: #fff; color: #000; }
+  header, #pasek-dol, #baner, .bez-druku { display: none !important; }
+  main { padding: 0; overflow: visible; }
+  .ekran { display: none; }
+  #ekran-raport { display: block; }
+  .karta { background: #fff; border: 1px solid #999; color: #000; }
+  .raport-wiersz { border-color: #ccc; }
+  #raport-tresc text { fill: #333; }
+}

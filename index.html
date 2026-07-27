@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Mój Oddech</title>
+<meta name="theme-color" content="#0d1b2a">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="ikony/ikona.svg">
+<link rel="apple-touch-icon" href="ikony/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="baner"></div>
+
+<header>
+  <div id="naglowek-data"></div>
+  <div id="naglowek-zegar"></div>
+  <div id="co-teraz"></div>
+</header>
+
+<main>
+
+  <!-- ===== EKRAN GŁÓWNY ===== -->
+  <section id="ekran-dzis" class="ekran aktywny">
+    <div class="kafle">
+      <button class="kafel" data-cel="ekran-leki">
+        <span class="ikona">💊</span> Leki
+        <span class="podpis" id="kafel-leki-podpis"></span>
+      </button>
+      <button class="kafel" data-cel="ekran-respirator">
+        <span class="ikona">😮‍💨</span> Respirator
+        <span class="podpis" id="kafel-respirator-podpis"></span>
+      </button>
+      <button class="kafel" data-cel="ekran-pomiary">
+        <span class="ikona">📏</span> Pomiary
+        <span class="podpis" id="kafel-pomiary-podpis"></span>
+      </button>
+      <button class="kafel" data-cel="ekran-dieta">
+        <span class="ikona">🍽️</span> Jedzenie
+        <span class="podpis" id="kafel-dieta-podpis"></span>
+      </button>
+      <button class="kafel" data-cel="ekran-dziennik">
+        <span class="ikona">🙂</span> Jak się czuję
+        <span class="podpis" id="kafel-dziennik-podpis"></span>
+      </button>
+      <button class="kafel" data-cel="ekran-raport">
+        <span class="ikona">📋</span> Dla lekarza
+        <span class="podpis">raport z 30 dni</span>
+      </button>
+    </div>
+    <p class="notka srodek">Aplikacja nie zastępuje lekarza.<br>
+      <span id="przycisk-ustawienia">Przytrzymaj tu 3 sekundy, aby otworzyć ustawienia ⚙️</span>
+    </p>
+  </section>
+
+  <!-- ===== LEKI ===== -->
+  <section id="ekran-leki" class="ekran">
+    <h2 class="tytul-ekranu">💊 Leki na dziś</h2>
+    <div id="leki-lista"></div>
+  </section>
+
+  <!-- ===== RESPIRATOR ===== -->
+  <section id="ekran-respirator" class="ekran">
+    <h2 class="tytul-ekranu">😮‍💨 Respirator</h2>
+    <svg class="postep-kolo" id="respirator-kolo" width="220" height="220" viewBox="0 0 220 220">
+      <circle class="tor" cx="110" cy="110" r="95" fill="none" stroke-width="18"></circle>
+      <circle class="pasek" id="respirator-pasek" cx="110" cy="110" r="95" fill="none" stroke-width="18"
+              stroke-linecap="round" transform="rotate(-90 110 110)"></circle>
+    </svg>
+    <div id="respirator-czas-duzy"></div>
+    <div id="respirator-info"></div>
+    <button class="przycisk zielony" id="respirator-przycisk"></button>
+    <div class="karta" id="respirator-oddech" style="display:none">
+      <h3>🧘 Spokojny oddech podczas leżenia</h3>
+      <p class="opis">Wdech nosem licząc do 2… wydech ustami licząc do 4, jak przez słomkę.
+      Powtarzaj spokojnie. To pomaga płucom odpocząć.</p>
+      <button class="przycisk maly niebieski bez-druku" id="respirator-czytaj">🔊 Przeczytaj na głos</button>
+    </div>
+  </section>
+
+  <!-- ===== POMIARY — wybór ===== -->
+  <section id="ekran-pomiary" class="ekran">
+    <h2 class="tytul-ekranu">📏 Pomiary</h2>
+    <button class="przycisk niebieski" data-pomiar="spo2">🫁 Tlen (pulsoksymetr)</button>
+    <button class="przycisk niebieski" data-pomiar="puls">❤️ Puls</button>
+    <button class="przycisk niebieski" data-pomiar="waga">⚖️ Waga</button>
+    <button class="przycisk niebieski" data-pomiar="cisnienie">🩺 Ciśnienie</button>
+    <button class="przycisk szary maly" data-cel="ekran-wykresy">📈 Zobacz wykresy z 30 dni</button>
+  </section>
+
+  <!-- ===== POMIARY — wpisywanie ===== -->
+  <section id="ekran-wpis" class="ekran">
+    <h2 class="tytul-ekranu" id="wpis-tytul"></h2>
+    <div id="wpis-wartosc"></div>
+    <div class="klawiatura">
+      <button class="klawisz">1</button><button class="klawisz">2</button><button class="klawisz">3</button>
+      <button class="klawisz">4</button><button class="klawisz">5</button><button class="klawisz">6</button>
+      <button class="klawisz">7</button><button class="klawisz">8</button><button class="klawisz">9</button>
+      <button class="klawisz" id="klawisz-kropka">,</button><button class="klawisz">0</button>
+      <button class="klawisz" id="klawisz-usun">⌫</button>
+    </div>
+    <button class="przycisk zielony" id="wpis-ok">ZAPISZ ✓</button>
+  </section>
+
+  <!-- ===== POMIARY — wynik ===== -->
+  <section id="ekran-wynik" class="ekran">
+    <div class="wynik" id="wynik-pole">
+      <div class="duzy" id="wynik-duzy"></div>
+      <div class="zdanie" id="wynik-zdanie"></div>
+    </div>
+    <button class="przycisk maly niebieski" id="wynik-czytaj">🔊 Przeczytaj na głos</button>
+    <button class="przycisk zielony" data-cel="ekran-dzis">WRÓĆ DO POCZĄTKU</button>
+  </section>
+
+  <!-- ===== WYKRESY ===== -->
+  <section id="ekran-wykresy" class="ekran">
+    <h2 class="tytul-ekranu">📈 Ostatnie 30 dni</h2>
+    <div id="wykresy-tresc"></div>
+  </section>
+
+  <!-- ===== DIETA ===== -->
+  <section id="ekran-dieta" class="ekran">
+    <h2 class="tytul-ekranu">🍽️ Co dziś jem?</h2>
+    <div id="dieta-posilki"></div>
+    <div class="karta">
+      <h3>💧 Szklanki wody dziś</h3>
+      <p class="opis">Dotknij szklanki, gdy wypijesz. Ilość płynów ustal z lekarzem.</p>
+      <div class="woda-rzad" id="woda-rzad"></div>
+    </div>
+    <div class="karta">
+      <h3>Jaki apetyt dziś?</h3>
+      <div class="wybor-rzad" id="apetyt-rzad">
+        <button class="wybor" data-apetyt="dobry">🙂<span class="mala-etykieta">dobry</span></button>
+        <button class="wybor" data-apetyt="sredni">😐<span class="mala-etykieta">średni</span></button>
+        <button class="wybor" data-apetyt="brak">😟<span class="mala-etykieta">słaby</span></button>
+      </div>
+    </div>
+    <div class="karta">
+      <h3>📜 Zasady jedzenia przy tej chorobie</h3>
+      <div id="dieta-zasady"></div>
+      <p class="notka wazna">To ogólne propozycje — potwierdź jadłospis z lekarzem lub dietetykiem.</p>
+    </div>
+  </section>
+
+  <!-- ===== DZIENNIK ===== -->
+  <section id="ekran-dziennik" class="ekran">
+    <h2 class="tytul-ekranu">🙂 Jak się dziś czuję?</h2>
+    <div class="karta">
+      <h3>Oddychanie dziś?</h3>
+      <div class="wybor-rzad" data-pytanie="oddech">
+        <button class="wybor" data-wartosc="1">🙂<span class="mala-etykieta">dobrze</span></button>
+        <button class="wybor" data-wartosc="2">😐<span class="mala-etykieta">średnio</span></button>
+        <button class="wybor" data-wartosc="3">😟<span class="mala-etykieta">ciężko</span></button>
+      </div>
+      <h3>Obrzęki nóg (spuchnięte kostki)?</h3>
+      <div class="wybor-rzad" data-pytanie="obrzeki">
+        <button class="wybor" data-wartosc="nie">👍<span class="mala-etykieta">nie</span></button>
+        <button class="wybor" data-wartosc="tak">🦵<span class="mala-etykieta">tak, spuchnięte</span></button>
+      </div>
+      <h3>Zmęczenie?</h3>
+      <div class="wybor-rzad" data-pytanie="zmeczenie">
+        <button class="wybor" data-wartosc="1">🙂<span class="mala-etykieta">małe</span></button>
+        <button class="wybor" data-wartosc="2">😐<span class="mala-etykieta">średnie</span></button>
+        <button class="wybor" data-wartosc="3">😟<span class="mala-etykieta">duże</span></button>
+      </div>
+    </div>
+    <button class="przycisk zielony" id="dziennik-zapisz">ZAPISZ ✓</button>
+  </section>
+
+  <!-- ===== RAPORT ===== -->
+  <section id="ekran-raport" class="ekran">
+    <h2 class="tytul-ekranu">📋 Raport dla lekarza</h2>
+    <div id="raport-tresc"></div>
+    <button class="przycisk niebieski bez-druku" id="raport-drukuj">🖨️ WYDRUKUJ / ZAPISZ PDF</button>
+  </section>
+
+  <!-- ===== POMOC ===== -->
+  <section id="ekran-pomoc" class="ekran">
+    <h2 class="tytul-ekranu">📞 Pomoc</h2>
+    <div class="duzy-emoji">🆘</div>
+    <a class="przycisk czerwony srodek" id="pomoc-bliski" style="display:none; line-height:60px; text-decoration:none"></a>
+    <p class="notka srodek">W nagłej duszności, bólu w klatce, utracie przytomności — dzwoń:</p>
+    <a class="przycisk czerwony srodek" href="tel:112" style="line-height:60px; text-decoration:none">🚑 ZADZWOŃ 112</a>
+    <div class="karta">
+      <h3>Zanim przyjedzie pomoc:</h3>
+      <p class="opis">1. Usiądź lub unieś wezgłowie — nie kładź się płasko.<br>
+         2. Załóż respirator, jeśli jest obok.<br>
+         3. Otwórz drzwi mieszkania, jeśli dasz radę.<br>
+         4. Oddychaj powoli: wdech nosem, długi wydech ustami.</p>
+    </div>
+  </section>
+
+  <!-- ===== USTAWIENIA ===== -->
+  <section id="ekran-ustawienia" class="ekran">
+    <h2 class="tytul-ekranu">⚙️ Ustawienia (dla opiekuna)</h2>
+
+    <div class="karta">
+      <h3>Osoba</h3>
+      <div class="ustawienie"><label>Imię</label><input id="ust-imie" type="text"></div>
+      <div class="ustawienie"><label>Telefon do bliskiej osoby (przycisk POMOC)</label><input id="ust-telefon" type="tel" placeholder="np. 600100200"></div>
+      <div class="ustawienie"><label>Cel respiratora (godzin dziennie)</label><input id="ust-cel" type="number" min="1" max="24"></div>
+      <div class="ustawienie"><label>Czytanie na głos</label>
+        <select id="ust-glos"><option value="nie">wyłączone</option><option value="tak">włączone</option></select>
+      </div>
+    </div>
+
+    <div class="karta">
+      <h3>Leki</h3>
+      <div id="ust-leki-lista"></div>
+      <div class="ustawienie"><label>Nazwa nowego leku</label><input id="ust-lek-nazwa" type="text" placeholder="np. Prednizon"></div>
+      <div class="ustawienie"><label>Godziny (po przecinku)</label><input id="ust-lek-godziny" type="text" placeholder="np. 08:00, 20:00"></div>
+      <button class="przycisk maly zielony" id="ust-lek-dodaj">➕ Dodaj lek</button>
+      <button class="przycisk maly niebieski" id="ust-powiadomienia">🔔 Włącz powiadomienia na tym telefonie</button>
+    </div>
+
+    <div class="karta">
+      <h3>Progi alarmów (USTAL Z LEKARZEM)</h3>
+      <div class="ustawienie"><label>Tlen — czerwony alarm poniżej (%)</label><input id="ust-spo2-alarm" type="number"></div>
+      <div class="ustawienie"><label>Tlen — żółte ostrzeżenie poniżej (%)</label><input id="ust-spo2-uwaga" type="number"></div>
+      <div class="ustawienie"><label>Puls — za wysoki powyżej</label><input id="ust-puls-wysoko" type="number"></div>
+      <div class="ustawienie"><label>Ciśnienie górne — za wysokie powyżej</label><input id="ust-cis-wysoko" type="number"></div>
+      <div class="ustawienie"><label>Alarm wagi — przyrost kg w 3 dni</label><input id="ust-waga-przyrost" type="number" step="0.5"></div>
+    </div>
+
+    <div class="karta">
+      <h3>Kopia zapasowa na GitHub (raz dziennie)</h3>
+      <p class="notka">Prywatne repozytorium, token fine-grained tylko do niego (Contents: read/write).</p>
+      <div class="ustawienie"><label>Repozytorium (użytkownik/nazwa)</label><input id="ust-gh-repo" type="text" placeholder="np. tommy/moj-oddech-dane"></div>
+      <div class="ustawienie"><label>Token</label><input id="ust-gh-token" type="password" placeholder="github_pat_…"></div>
+      <button class="przycisk maly niebieski" id="ust-backup-teraz">☁️ Wyślij kopię teraz (test)</button>
+      <p class="notka" id="backup-status"></p>
+      <button class="przycisk maly szary" id="ust-eksport">💾 Pobierz dane jako plik</button>
+    </div>
+
+    <button class="przycisk zielony" id="ust-zapisz">ZAPISZ USTAWIENIA ✓</button>
+  </section>
+
+</main>
+
+<div id="pasek-dol">
+  <button id="przycisk-wstecz">◀ WRÓĆ</button>
+  <button id="przycisk-pomoc">📞 POMOC</button>
+</div>
+
+<script src="jadlospis.js"></script>
+<script src="data.js"></script>
+<script src="backup.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

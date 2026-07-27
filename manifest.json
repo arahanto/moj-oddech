@@ -1,0 +1,16 @@
+{
+  "name": "Mój Oddech",
+  "short_name": "Mój Oddech",
+  "description": "Codzienny pomocnik przy amyloidozie płuc: leki, respirator, pomiary, dieta",
+  "lang": "pl",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d1b2a",
+  "theme_color": "#0d1b2a",
+  "icons": [
+    { "src": "ikony/ikona-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "ikony/ikona-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
