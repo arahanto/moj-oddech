@@ -11,12 +11,24 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="style.css">
+
+<meta name="description" content="Aplikacja PWA dla osoby z chorobą płuc: leki, czas respiratora, pomiary, jadłospis niskosolny i raport dla lekarza. Dane zostają w telefonie.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mój Oddech — dziennik zdrowia na telefon">
+<meta property="og:description" content="Aplikacja PWA dla osoby z chorobą płuc: leki, czas respiratora, pomiary, jadłospis niskosolny i raport dla lekarza. Dane zostają w telefonie.">
+<meta property="og:url" content="https://arahanto.github.io/moj-oddech/">
+<meta property="og:image" content="https://arahanto.github.io/moj-oddech/podglad.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<style>.tylko-czytnik{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}</style>
 </head>
 <body>
 
 <div id="baner"></div>
 
 <header>
+  <h1 class="tylko-czytnik">Mój Oddech</h1>
   <div id="naglowek-data"></div>
   <div id="naglowek-zegar"></div>
   <div id="co-teraz"></div>
@@ -200,10 +212,10 @@
 
     <div class="karta">
       <h3>Osoba</h3>
-      <div class="ustawienie"><label>Imię</label><input id="ust-imie" type="text"></div>
-      <div class="ustawienie"><label>Telefon do bliskiej osoby (przycisk POMOC)</label><input id="ust-telefon" type="tel" placeholder="np. 600100200"></div>
-      <div class="ustawienie"><label>Cel respiratora (godzin dziennie)</label><input id="ust-cel" type="number" min="1" max="24"></div>
-      <div class="ustawienie"><label>Czytanie na głos</label>
+      <div class="ustawienie"><label for="ust-imie">Imię</label><input id="ust-imie" type="text"></div>
+      <div class="ustawienie"><label for="ust-telefon">Telefon do bliskiej osoby (przycisk POMOC)</label><input id="ust-telefon" type="tel" placeholder="np. 600100200"></div>
+      <div class="ustawienie"><label for="ust-cel">Cel respiratora (godzin dziennie)</label><input id="ust-cel" type="number" min="1" max="24"></div>
+      <div class="ustawienie"><label for="ust-glos">Czytanie na głos</label>
         <select id="ust-glos"><option value="nie">wyłączone</option><option value="tak">włączone</option></select>
       </div>
     </div>
@@ -211,26 +223,26 @@
     <div class="karta">
       <h3>Leki</h3>
       <div id="ust-leki-lista"></div>
-      <div class="ustawienie"><label>Nazwa nowego leku</label><input id="ust-lek-nazwa" type="text" placeholder="np. Prednizon"></div>
-      <div class="ustawienie"><label>Godziny (po przecinku)</label><input id="ust-lek-godziny" type="text" placeholder="np. 08:00, 20:00"></div>
+      <div class="ustawienie"><label for="ust-lek-nazwa">Nazwa nowego leku</label><input id="ust-lek-nazwa" type="text" placeholder="np. Prednizon"></div>
+      <div class="ustawienie"><label for="ust-lek-godziny">Godziny (po przecinku)</label><input id="ust-lek-godziny" type="text" placeholder="np. 08:00, 20:00"></div>
       <button class="przycisk maly zielony" id="ust-lek-dodaj">➕ Dodaj lek</button>
       <button class="przycisk maly niebieski" id="ust-powiadomienia">🔔 Włącz powiadomienia na tym telefonie</button>
     </div>
 
     <div class="karta">
       <h3>Progi alarmów (USTAL Z LEKARZEM)</h3>
-      <div class="ustawienie"><label>Tlen — czerwony alarm poniżej (%)</label><input id="ust-spo2-alarm" type="number"></div>
-      <div class="ustawienie"><label>Tlen — żółte ostrzeżenie poniżej (%)</label><input id="ust-spo2-uwaga" type="number"></div>
-      <div class="ustawienie"><label>Puls — za wysoki powyżej</label><input id="ust-puls-wysoko" type="number"></div>
-      <div class="ustawienie"><label>Ciśnienie górne — za wysokie powyżej</label><input id="ust-cis-wysoko" type="number"></div>
-      <div class="ustawienie"><label>Alarm wagi — przyrost kg w 3 dni</label><input id="ust-waga-przyrost" type="number" step="0.5"></div>
+      <div class="ustawienie"><label for="ust-spo2-alarm">Tlen — czerwony alarm poniżej (%)</label><input id="ust-spo2-alarm" type="number"></div>
+      <div class="ustawienie"><label for="ust-spo2-uwaga">Tlen — żółte ostrzeżenie poniżej (%)</label><input id="ust-spo2-uwaga" type="number"></div>
+      <div class="ustawienie"><label for="ust-puls-wysoko">Puls — za wysoki powyżej</label><input id="ust-puls-wysoko" type="number"></div>
+      <div class="ustawienie"><label for="ust-cis-wysoko">Ciśnienie górne — za wysokie powyżej</label><input id="ust-cis-wysoko" type="number"></div>
+      <div class="ustawienie"><label for="ust-waga-przyrost">Alarm wagi — przyrost kg w 3 dni</label><input id="ust-waga-przyrost" type="number" step="0.5"></div>
     </div>
 
     <div class="karta">
       <h3>Kopia zapasowa na GitHub (raz dziennie)</h3>
       <p class="notka">Prywatne repozytorium, token fine-grained tylko do niego (Contents: read/write).</p>
-      <div class="ustawienie"><label>Repozytorium (użytkownik/nazwa)</label><input id="ust-gh-repo" type="text" placeholder="np. tommy/moj-oddech-dane"></div>
-      <div class="ustawienie"><label>Token</label><input id="ust-gh-token" type="password" placeholder="github_pat_…"></div>
+      <div class="ustawienie"><label for="ust-gh-repo">Repozytorium (użytkownik/nazwa)</label><input id="ust-gh-repo" type="text" placeholder="np. tommy/moj-oddech-dane"></div>
+      <div class="ustawienie"><label for="ust-gh-token">Token</label><input id="ust-gh-token" type="password" placeholder="github_pat_…"></div>
       <button class="przycisk maly niebieski" id="ust-backup-teraz">☁️ Wyślij kopię teraz (test)</button>
       <p class="notka" id="backup-status"></p>
       <button class="przycisk maly szary" id="ust-eksport">💾 Pobierz dane jako plik</button>
